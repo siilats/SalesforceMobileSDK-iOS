@@ -176,6 +176,16 @@ typedef void (^SFRestBatchResponseBlock) (SFSDKBatchResponse *response, NSURLRes
                                      completeBlock:(SFRestDictionaryResponseBlock)completeBlock
                                         NS_SWIFT_UNAVAILABLE("Use RestRequest factory methods to construct the request and RestClient send instead.") SFSDK_DEPRECATED("8.2", "9.0", "Will be removed in Mobile SDK 9.0, use RestRequest factory methods to construct the request and RestClient send instead.");
 
+- (SFRestRequest *) performPicklistWithObjectAPIName:(NSString *)objectAPIName
+                                        formFactor:(NSString *)formFactor
+                                        layoutType:(NSString *)layoutType
+                                              mode:(NSString *)mode
+                                      recordTypeId:(NSString *)recordTypeId
+                                         failBlock:(SFRestFailBlock)failBlock
+                                     completeBlock:(SFRestDictionaryResponseBlock)completeBlock
+                                        NS_SWIFT_UNAVAILABLE("Use RestRequest factory methods to construct the request and RestClient send instead.");;
+
+/**
 /**
  * Executes a metadata describe on a single sObject.
  * @param objectType the API name of the object to describe.

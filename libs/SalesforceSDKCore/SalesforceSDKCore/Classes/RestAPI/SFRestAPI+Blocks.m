@@ -186,6 +186,14 @@ static char SuccessBlockKey;
     return request;
 }
 
+- (SFRestRequest *) performPicklistWithObjectAPIName:(NSString *)objectAPIName formFactor:(NSString *)formFactor layoutType:(NSString *)layoutType mode:(NSString *)mode recordTypeId:(NSString *)recordTypeId failBlock:(SFRestFailBlock)failBlock completeBlock:(SFRestDictionaryResponseBlock)completeBlock {
+    SFRestRequest *request = [self requestForPicklistWithObjectAPIName:objectAPIName formFactor:formFactor layoutType:layoutType mode:mode recordTypeId:recordTypeId apiVersion:self.apiVersion];
+    [self sendRESTRequest:request
+                failBlock:failBlock
+            completeBlock:completeBlock];
+    return request;
+}
+
 - (SFRestRequest *) performMetadataWithObjectType:(NSString *)objectType failBlock:(SFRestFailBlock)failBlock completeBlock:(SFRestDictionaryResponseBlock)completeBlock {
     SFRestRequest *request = [self requestForMetadataWithObjectType:objectType apiVersion:self.apiVersion];
     [self sendRESTRequest:request
