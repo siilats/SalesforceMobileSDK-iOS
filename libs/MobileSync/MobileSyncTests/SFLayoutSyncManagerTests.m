@@ -221,6 +221,11 @@ static NSString * const kQuery = @"SELECT {%@:_soup} FROM {%@} WHERE {%@:Id} = '
     XCTAssertTrue(layout.sections[0].layoutRows.count > 0, @"Number of layout rows for a section should be 1 or more");
     XCTAssertNotEqualObjects(layout.sections[0].layoutRows[0].layoutItems, nil, @"Layout items for a row should not be nil");
     XCTAssertTrue(layout.sections[0].layoutRows[0].layoutItems.count > 0, @"Number of layout items for a row should be 1 or more");
+    SFItem *layoutItem = layout.sections[0].layoutRows[0].layoutItems[0];
+    XCTAssertFalse(layoutItem.sortable, @"Sortable should be false");
+    XCTAssertTrue(layoutItem.editableForNew, @"Editable should be true");
+    XCTAssert(layoutItem.layoutComponents.count > 0, "Number of layout components for an item should be 1 or more");
+    XCTAssert(layoutItem.layoutComponents[0].allKeys.count > 1, "Layout component fields should be 2 or more");
 }
 
 @end
