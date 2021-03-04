@@ -34,9 +34,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSFaceIDUsageDescription</key>
-	<string>"Use FaceID"</string>
+	<string>&quot;Use FaceID&quot;</string>
 	<key>SFDCOAuthLoginHost</key>
-	<string>mobilesdk.my.salesforce.com</string>
+	<string>keith-betterhearing.cs108.force.com/phase1</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
