@@ -35,8 +35,6 @@
 
 // Pattern demonstrated in the Apple documentation. We use a static key
 // whose address will be used by the objc_setAssociatedObject (no need to have a value).
-static char FailBlockKey;
-static char CompleteBlockKey;
 static char FailureBlockKey;
 static char SuccessBlockKey;
 
@@ -57,39 +55,16 @@ static char SuccessBlockKey;
 
 #pragma mark - sending requests
 
-- (void) sendRESTRequest:(SFRestRequest *)request failBlock:(SFRestFailBlock)failBlock completeBlock:(SFRestResponseBlock)completeBlock {
-    // Copy blocks into the request instance
-    objc_setAssociatedObject(request, &FailBlockKey, failBlock, OBJC_ASSOCIATION_COPY);
-    objc_setAssociatedObject(request, &CompleteBlockKey, completeBlock, OBJC_ASSOCIATION_COPY);
-    [self send:request delegate:self];
-}
-
 - (void) sendRequest:(SFRestRequest *)request failureBlock:(SFRestRequestFailBlock)failureBlock successBlock:(SFRestResponseBlock)successBlock {
     objc_setAssociatedObject(request, &FailureBlockKey, failureBlock, OBJC_ASSOCIATION_COPY);
     objc_setAssociatedObject(request, &SuccessBlockKey, successBlock, OBJC_ASSOCIATION_COPY);
     [self send:request requestDelegate:self];
 }
 
-- (void) sendCompositeRESTRequest:(SFSDKCompositeRequest *)request failBlock:(SFRestFailBlock)failBlock completeBlock:(SFRestCompositeResponseBlock)completeBlock {
-    // Copy blocks into the request instance
-    [self sendRESTRequest:request failBlock:failBlock completeBlock:^(id response, NSURLResponse * rawResponse) {
-        SFSDKCompositeResponse *compositeResponse = [[SFSDKCompositeResponse alloc]initWith:response];
-        completeBlock(compositeResponse,rawResponse);
-    }];
-}
-
 - (void) sendCompositeRequest:(SFSDKCompositeRequest *)request failureBlock:(SFRestRequestFailBlock)failureBlock successBlock:(SFRestCompositeResponseBlock)successBlock {
     [self sendRequest:request failureBlock:failureBlock successBlock:^(id response, NSURLResponse * rawResponse) {
         SFSDKCompositeResponse *compositeResponse = [[SFSDKCompositeResponse alloc] initWith:response];
         successBlock(compositeResponse, rawResponse);
-    }];
-}
-
-- (void) sendBatchRESTRequest:(SFSDKBatchRequest *)request failBlock:(SFRestFailBlock)failBlock completeBlock:(SFRestBatchResponseBlock)completeBlock {
-    // Copy blocks into the request instance
-    [self sendRESTRequest:request failBlock:failBlock completeBlock:^(id response, NSURLResponse * rawResponse) {
-        SFSDKBatchResponse *compositeResponse = [[SFSDKBatchResponse alloc]initWith:response];
-        completeBlock(compositeResponse,rawResponse);
     }];
 }
 
@@ -257,25 +232,6 @@ static char SuccessBlockKey;
 
 #pragma mark - response delegate
 
-- (void) sendActionForRequest:(SFRestRequest *)request success:(BOOL)success withObject:(id)object rawResponse:(NSURLResponse *)rawResponse {
-    if (success) {
-        void (^successBlock)(id, NSURLResponse *);
-        successBlock = (void (^) (id, NSURLResponse *))objc_getAssociatedObject(request, &CompleteBlockKey);
-        if (successBlock) {
-            successBlock(object, rawResponse);    
-        }
-    } else {
-        SFRestFailBlock failBlock = (SFRestFailBlock)objc_getAssociatedObject(request, &FailBlockKey);
-        if (failBlock) {
-            failBlock(object, rawResponse);
-        }
-    }
-
-    // Remove both blocks from the request
-    objc_setAssociatedObject(request, &FailBlockKey, nil, OBJC_ASSOCIATION_ASSIGN);
-    objc_setAssociatedObject(request, &CompleteBlockKey, nil, OBJC_ASSOCIATION_ASSIGN);
-}
-
 - (void) triggerDelegatesForRequest:(SFRestRequest *)request success:(BOOL)success withObject:(id)object rawResponse:(NSURLResponse *)rawResponse error:(NSError *)error {
     if (success) {
         void (^successBlock)(id, NSURLResponse *);
@@ -293,22 +249,6 @@ static char SuccessBlockKey;
     // Removes both blocks from the request.
     objc_setAssociatedObject(request, &FailureBlockKey, nil, OBJC_ASSOCIATION_ASSIGN);
     objc_setAssociatedObject(request, &SuccessBlockKey, nil, OBJC_ASSOCIATION_ASSIGN);
-}
-
-- (void)request:(SFRestRequest *)request didFailLoadWithError:(NSError *)error rawResponse:(NSURLResponse *)rawResponse {
-    [self sendActionForRequest:request success:NO withObject:error rawResponse:rawResponse];
-}
-
-- (void)requestDidCancelLoad:(SFRestRequest *)request {    
-    [self sendActionForRequest:request success:NO withObject:[[self class] errorWithDescription:@"Cancelled Load."] rawResponse:nil];
-}
-
-- (void)requestDidTimeout:(SFRestRequest *)request {    
-    [self sendActionForRequest:request success:NO withObject:[[self class] errorWithDescription:@"Timed out."] rawResponse:nil];
-}
-
-- (void)request:(SFRestRequest *)request didLoadResponse:(id)dataResponse rawResponse:(NSURLResponse *)rawResponse {
-    [self sendActionForRequest:request success:YES withObject:dataResponse rawResponse:rawResponse];
 }
 
 - (void)request:(SFRestRequest *)request didSucceed:(id)dataResponse rawResponse:(NSURLResponse *)rawResponse {

@@ -25,7 +25,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SFRestAPI.h"
+#import <SalesforceSDKCore/SFRestAPI.h>
 
 NS_ASSUME_NONNULL_BEGIN
 @class SFSDKCompositeResponse;
@@ -33,10 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class SFSDKCompositeRequest;
 @class SFSDKBatchRequest;
 
-@interface SFRestAPI (Blocks) <SFRestDelegate, SFRestRequestDelegate>
+@interface SFRestAPI (Blocks) <SFRestRequestDelegate>
 
 // Block types
-typedef void (^SFRestFailBlock) (NSError * _Nullable e, NSURLResponse * _Nullable rawResponse) NS_SWIFT_NAME(RestFailBlock) SFSDK_DEPRECATED("8.2", "9.0", "Will be removed in Mobile SDK 9.0, use SFRestRequestFailBlock instead.");
 typedef void (^SFRestRequestFailBlock) (id _Nullable response, NSError * _Nullable e, NSURLResponse * _Nullable rawResponse) NS_SWIFT_NAME(RestRequestFailBlock);
 typedef void (^SFRestDictionaryResponseBlock) (NSDictionary * _Nullable dict, NSURLResponse * _Nullable rawResponse)  NS_SWIFT_NAME(RestDictionaryResponseBlock);
 typedef void (^SFRestArrayResponseBlock) (NSArray * _Nullable arr, NSURLResponse * _Nullable rawResponse) NS_SWIFT_NAME(RestArrayResponseBlock);
@@ -51,14 +50,6 @@ typedef void (^SFRestBatchResponseBlock) (SFSDKBatchResponse *response, NSURLRes
 + (NSError *)errorWithDescription:(NSString *)description;
 
 /**
- * Send a request you've already built, using blocks to return status.
- * @param request the SFRestRequest to be sent
- * @param failBlock the block to be executed when the request fails (timeout, cancel, or error)
- * @param completeBlock the block to be executed when the request successfully completes
- */
-- (void) sendRESTRequest:(SFRestRequest *)request failBlock:(SFRestFailBlock)failBlock completeBlock:(SFRestResponseBlock)completeBlock NS_REFINED_FOR_SWIFT SFSDK_DEPRECATED("8.2", "9.0", "Will be removed in Mobile SDK 9.0, use sendRequest:request:failureBlock:successBlock instead.");
-
-/**
  * Sends a request you've already built, using blocks to return status.
  *
  * @param request SFRestRequest to be sent.
@@ -68,14 +59,6 @@ typedef void (^SFRestBatchResponseBlock) (SFSDKBatchResponse *response, NSURLRes
 - (void) sendRequest:(SFRestRequest *)request failureBlock:(SFRestRequestFailBlock)failureBlock successBlock:(SFRestResponseBlock)successBlock NS_REFINED_FOR_SWIFT;
 
 /**
- * Send a request you've already built, using blocks to return status.
- * @param request the Composite request to be sent
- * @param failBlock the block to be executed when the request fails (timeout, cancel, or error)
- * @param completeBlock the block to be executed when the request successfully completes
- */
-- (void) sendCompositeRESTRequest:(SFSDKCompositeRequest *)request failBlock:(SFRestFailBlock)failBlock  completeBlock:(SFRestCompositeResponseBlock)completeBlock NS_REFINED_FOR_SWIFT SFSDK_DEPRECATED("8.2", "9.0", "Will be removed in Mobile SDK 9.0, use sendCompositeRequest:request:failureBlock:successBlock instead.");
-
-/**
  * Sends a request you've already built, using blocks to return status.
  *
  * @param request Composite request to be sent.
@@ -83,14 +66,6 @@ typedef void (^SFRestBatchResponseBlock) (SFSDKBatchResponse *response, NSURLRes
  * @param successBlock Block to be executed when the request successfully completes.
  */
 - (void) sendCompositeRequest:(SFSDKCompositeRequest *)request failureBlock:(SFRestRequestFailBlock)failureBlock successBlock:(SFRestCompositeResponseBlock)successBlock NS_REFINED_FOR_SWIFT;
-
-/**
- * Send a request you've already built, using blocks to return status.
- * @param request the Batch request to be sent
- * @param failBlock the block to be executed when the request fails (timeout, cancel, or error)
- * @param completeBlock the block to be executed when the request successfully completes
- */
-- (void) sendBatchRESTRequest:(SFSDKBatchRequest *)request failBlock:(SFRestFailBlock)failBlock completeBlock:(SFRestBatchResponseBlock)completeBlock NS_REFINED_FOR_SWIFT SFSDK_DEPRECATED("8.2", "9.0", "Will be removed in Mobile SDK 9.0, use sendBatchRequest:request:failureBlock:successBlock instead.");
 
 /**
  * Sends a request you've already built, using blocks to return status.
@@ -325,7 +300,6 @@ typedef void (^SFRestBatchResponseBlock) (SFSDKBatchResponse *response, NSURLRes
 - (SFRestRequest *) performRequestForSearchResultLayout:(NSString*)objectList
                                               failBlock:(SFRestFailBlock)failBlock
                                           completeBlock:(SFRestArrayResponseBlock)completeBlock NS_SWIFT_UNAVAILABLE("Use RestRequest factory methods to construct the request and RestClient send instead.") SFSDK_DEPRECATED("8.2", "9.0", "Will be removed in Mobile SDK 9.0, use RestRequest factory methods to construct the request and RestClient send instead.");
-
 @end
 
 NS_ASSUME_NONNULL_END
