@@ -307,7 +307,6 @@
 		828917811C52B705002F9981 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = ../../../../external/fmdb/src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
 		828917821C52B705002F9981 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = ../../../../external/fmdb/src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
 		828917831C52B705002F9981 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = ../../../../external/fmdb/src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
-		828917AC1C52DB6B002F9981 /* libsqlcipher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsqlcipher.a; path = ../../external/ThirdPartyDependencies/sqlcipher/libsqlcipher.a; sourceTree = "<group>"; };
 		829DA2A91C1266F70040F5F1 /* SmartStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartStore.h; sourceTree = "<group>"; };
 		82D0AB331C497FD90081F833 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B716A3A9218F6AAC009D407F /* SalesforceAnalytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SalesforceAnalytics.xcodeproj; path = ../SalesforceAnalytics/SalesforceAnalytics.xcodeproj; sourceTree = "<group>"; };
@@ -526,7 +525,6 @@
 				B716A3B9218F6AB3009D407F /* SalesforceSDKCommon.xcodeproj */,
 				69B2B322261D2C9B00AB86C2 /* SQLCipher.xcframework */,
 				B716A3A9218F6AAC009D407F /* SalesforceAnalytics.xcodeproj */,
-				828917AC1C52DB6B002F9981 /* libsqlcipher.a */,
 				CE0AB0771C10D3B500BFAEED /* libxml2.tbd */,
 				CE4CE5841C0FB648009F6029 /* libz.tbd */,
 				CE1F0AFA19ACF95B0007F22F /* ImageIO.framework */,
