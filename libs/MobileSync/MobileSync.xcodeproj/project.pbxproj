@@ -1362,6 +1362,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bytelogics.salesforce.MobileSyncTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1391,6 +1392,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bytelogics.salesforce.MobileSyncTestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1425,6 +1427,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bytelogics.salesforce.mobilesdk.MobileSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1464,6 +1467,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bytelogics.salesforce.mobilesdk.MobileSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
